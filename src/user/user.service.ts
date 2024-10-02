@@ -44,34 +44,33 @@ export class UserService {
   }
 
   async getOne(id: string) {
-    try {
-      return await this.repository.findOne(id,'-password');
-    } catch (error) {
+    const user = await this.repository.findOne(id, '-password');
+    if (!user) {
       throw new NotFoundException('Không tìm thấy user');
     }
+    return user;
   }
-
   async updateUser(id: string, updateUser: UpdateUserDto) {
-    try {
-      return await this.repository.UpdateUser(id, updateUser);
-    } catch (error) {
+    const user = await this.repository.UpdateUser(id, updateUser);
+    if (!user) {
       throw new NotFoundException('Không tìm thay user');
     }
+    return user;
   }
 
   async deleteUser(id: string) {
-    try {
-      return await this.repository.deleteUser(id);
-    } catch (error) {
+    const user = await this.repository.deleteUser(id);
+    if (!user) {
       throw new NotFoundException('Không tìm thay user');
     }
+    return user;
   }
 
   async updateStatusUser(id: string, status: boolean) {
-    try {
-      return await this.repository.updateStatusUser(id, status);
-    } catch (error) {
-      throw new NotFoundException('Không tìm thấy user');
+    const user = await this.repository.updateStatusUser(id, status);
+    if (!user) {
+      throw new NotFoundException('Không tìm thay user');
     }
+    return user;
   }
 }

@@ -46,7 +46,7 @@ export class UserRepository {
     return await this.model.findOneAndDelete( { _id: id } );
   }
   async updateStatusUser(id: string, status: boolean) {
-    return await this.model.findOneAndUpdate({ _id: id }, { status }, { new: true });
+    return await this.model.findOneAndUpdate({ _id: id }, { status }, { new: true }).lean<User>(true);
   }
   
   async findByEmail(email: string) {

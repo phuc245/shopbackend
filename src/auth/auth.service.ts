@@ -1,3 +1,4 @@
+import { Role } from './decorator/role.enum';
 import { UserRepository } from 'src/user/user.repository';
 import { LoginDto } from './dto/login.dto';
 import {
@@ -7,6 +8,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { TokenPayloadDto } from './dto/token-payload.dto';
 
 @Injectable()
 export class AuthService {
@@ -32,10 +34,11 @@ export class AuthService {
       throw new UnauthorizedException('Sai mật khẩu');
     }
 
-    const body = {
-      _id: user._id,
+    const body: TokenPayloadDto = {
+      _id: user._id.toHexString(),
       email: user.email,
       name: user.name,
+      role: user.role,
     };
 
     return this.jwtService.signAsync(body);
