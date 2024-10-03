@@ -18,15 +18,17 @@ export class UserRepository {
     return (await newUser).toJSON();
   }
 
-
   async findOne(id: string, select: string) {
     return await this.model.findById(id).select(select).lean<User>(true);
   }
 
-  async findAll(page: number
-    , limit: number
-    , sort: 'asc'|'desc'
-    , keyword: any) {
+  //Tìm kiếm tất cả và phân trang
+  async findAll(
+    page: number,
+    limit: number,
+    sort: 'asc' | 'desc',
+    keyword: any,
+  ) {
     return await this.model
       .find(keyword)
       .skip((page - 1) * limit)
@@ -37,18 +39,18 @@ export class UserRepository {
   }
 
   async UpdateUser(id: string, user: UpdateUserDto) {
-
     return await this.model.findOneAndUpdate({ _id: id }, user, { new: true });
-
-}
+  }
 
   async deleteUser(id: string) {
-    return await this.model.findOneAndDelete( { _id: id } );
+    return await this.model.findOneAndDelete({ _id: id });
   }
   async updateStatusUser(id: string, status: boolean) {
-    return await this.model.findOneAndUpdate({ _id: id }, { status }, { new: true }).lean<User>(true);
+    return await this.model
+      .findOneAndUpdate({ _id: id }, { status }, { new: true })
+      .lean<User>(true);
   }
-  
+
   async findByEmail(email: string) {
     return await this.model.findOne({ email }).lean<User>(true);
   }

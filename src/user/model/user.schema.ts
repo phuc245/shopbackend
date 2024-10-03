@@ -1,9 +1,9 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { SchemaType, SchemaTypes, Types } from "mongoose";
-import { Role } from "src/auth/decorator/role.enum";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { SchemaType, SchemaTypes, Types } from 'mongoose';
+import { Role } from 'src/auth/decorator/role.enum';
 
-@Schema({versionKey: false})
-export class User  {
+@Schema({ versionKey: false })
+export class User {
   @Prop({ type: SchemaTypes.ObjectId })
   _id: Types.ObjectId;
 
@@ -18,7 +18,6 @@ export class User  {
 
   @Prop({ required: true, default: true })
   status: boolean;
-
 
   @Prop({ type: [String], enum: Role, default: [Role.USER] })
   role: Role[];
