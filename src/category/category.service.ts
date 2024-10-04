@@ -7,6 +7,8 @@ import { CategoryRepository } from './category.repository';
 import { Types } from 'mongoose';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
+import { checkValisIsObject } from 'src/comon/comon';
+import { ParamPaginationDto } from 'src/comon/param-pagination.dto';
 
 @Injectable()
 export class CategoryService {
@@ -41,8 +43,12 @@ export class CategoryService {
   }
 
   // tìm tất cả danh mục
-  findAll() {
-    return this.repository.findAll();
+  findAll(params: ParamPaginationDto) {
+    const { page, limit, sort, keyword } = params;
+
+    const newSort = sort != 'asc' ? 'desc' : 'asc';
+
+    return this.repository.findAll(page, limit, newSort, keyword);
   }
 
   // tìm kiếm theo id
@@ -76,6 +82,8 @@ export class CategoryService {
     const checkParent = parent_id !== '' ? parent_id : null;
 
     if (parent_id !== '') {
+      checkValisIsObject(parent_id, 'parent_id');
+
       const idValid = Types.ObjectId.isValid(parent_id);
       if (!idValid) {
         throw new UnprocessableEntityException('parent_id khong hop le');
@@ -107,6 +115,9 @@ export class CategoryService {
 
   // Thay đổi trạng thái theo id
   async updateStatusById(id: string, status: boolean) {
+    checkValisIsObject(id, 'category id');
+    checkValisIsObject(id, 'parent_id');
+
     const idValid = Types.ObjectId.isValid(id);
     if (!idValid) {
       throw new UnprocessableEntityException('id này khong hop le');

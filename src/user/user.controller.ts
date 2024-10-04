@@ -12,13 +12,14 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { get } from 'mongoose';
-import { ParamPaginationDto } from './dto/param-pagination.dto';
+import { ParamPaginationDto } from '../comon/param-pagination.dto';
 import { User } from './model/user.schema';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { Role } from 'src/auth/decorator/role.enum';
 import { Roles } from 'src/auth/decorator/role.decorator';
 import { RoleAuthGuard } from 'src/auth/guards/role-jwt.gaurd';
+import { buildPagination } from 'src/comon/comon';
 
 @Controller('users')
 export class UserController {
@@ -38,7 +39,7 @@ export class UserController {
   @Get()
   async getAllUsers(@Query() page: ParamPaginationDto) {
     const listUsers = await this.service.getAll(page);
-    return this.buildPagination(listUsers, page);
+    return buildPagination<User>(listUsers, page);
   }
 
   // Sửa User
@@ -58,7 +59,7 @@ export class UserController {
 
     return 'Xoá user thành công!';
   }
-  
+
   // Lay User theo ID
   @UseGuards(JwtAuthGuard)
   @Roles(Role.ADMIN)
@@ -71,19 +72,10 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Roles(Role.ADMIN)
   @Put(':id/status')
-  async updatupdateStatusUser(@Param('id') _id: string, @Query('status') status: boolean) {
-    const user =  await this.service.updateStatusUser(_id, status);
-    console.log(user)
-    return user
-  }
-
-  private buildPagination(listUsers: User[], param: ParamPaginationDto) {
-    const { page, limit } = param;
-    return {
-      total_items: listUsers.length,
-      total_pages: Math.ceil(listUsers.length / limit),
-      current_page: parseInt(String(page)),
-      entities: listUsers,
-    };
+  updatupdateStatusUser(
+    @Param('id') _id: string,
+    @Query('status') status: boolean,
+  ) {
+    return this.service.updateStatusUser(_id, status);
   }
 }

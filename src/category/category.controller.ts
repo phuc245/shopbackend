@@ -13,6 +13,9 @@ import {
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { CategoryService } from './category.service';
 import { RoleAuthGuard } from 'src/auth/guards/role-jwt.gaurd';
+import { ParamPaginationDto } from 'src/comon/param-pagination.dto';
+import { buildPagination } from 'src/comon/comon';
+import { Category } from './model/category.schema';
 
 @Controller('categories')
 export class CategoryController {
@@ -26,8 +29,14 @@ export class CategoryController {
 
   //@UseGuards(jwtAuthGuard)
   @Get()
-  findAllDanhMuc() {
-    return this.service.findAll();
+  async getAll(@Query() params: ParamPaginationDto) {
+    const categories = await this.service.findAll(params);
+
+    const rootCategories = categories.filter((category) => {
+      return category.parent_id === null;
+    });
+
+    return buildPagination<Category>(categories, params, rootCategories);
   }
 
   //@UseGuards(jwtAuthGuard)
