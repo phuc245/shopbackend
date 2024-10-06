@@ -40,7 +40,16 @@ export class ProductRepository {
     keyword: any,
   ) {
     return await this.model
-      .find(keyword ? { $or: [{ name: new RegExp(keyword, 'i') }] } : {})
+      .find(
+        keyword
+          ? {
+              $or: [
+                { name: new RegExp(keyword, 'i') },
+                { author: new RegExp(keyword, 'i') },
+              ],
+            }
+          : {},
+      )
       .skip((page - 1) * limit)
       .sort({ name: sort })
       .limit(limit)
@@ -50,5 +59,26 @@ export class ProductRepository {
 
   async deleteOne(id: string) {
     return await this.model.findOneAndDelete({ _id: id }).lean<Product>(true);
+  }
+
+  async updateOne(id: string, product: Product) {
+    return await this.model
+      .findOneAndUpdate({ _id: id }, product, {
+        new: true,
+      })
+      .lean<Product>(true);
+  }
+
+  async findOne(id: string) {
+    return await this.model.findOne({ _id: id }).lean<Product>(true);
+  }
+
+  async deleteExtraImages(id: Types.ObjectId, image_ids: string[]) {
+    return await this.model
+      .findOneAndUpdate(
+        { _id: id },
+        { $pull: { images: { image_id: { $in: image_ids } } } },
+      )
+      .lean<Product>(true);
   }
 }
