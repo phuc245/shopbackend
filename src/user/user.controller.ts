@@ -26,7 +26,7 @@ export class UserController {
   constructor(private readonly service: UserService) {}
 
   // Tạo User
-  @UseGuards(JwtAuthGuard, RoleAuthGuard)
+  @UseGuards(JwtAuthGuard, RoleAuthGuard) //kiem tra dang nhap
   @Roles(Role.ADMIN)
   @Post()
   createUser(@Body() createUserDto: CreateUserDto) {
