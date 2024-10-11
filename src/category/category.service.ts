@@ -130,4 +130,8 @@ export class CategoryService {
 
     return category;
   }
+
+  async findAllGetName() {
+    return await this.repository.findAllGetName();
+  }
 }

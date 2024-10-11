@@ -108,4 +108,8 @@ export class CategoryRepository {
       .findOneAndUpdate({ _id: id }, { status }, { new: true })
       .lean<Category>(true);
   }
+
+  async findAllGetName() {
+    return await this.model.find().lean<Category[]>(true);
+  }
 }

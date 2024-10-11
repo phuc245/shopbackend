@@ -36,8 +36,8 @@ export class UserService implements OnModuleInit {
       keyword !== undefined
         ? {
             $or: [
-              { name: new RegExp(keyword, 'i') },
-              { email: new RegExp(keyword, 'i') },
+              { name: new RegExp(keyword, 'i') }, //tìm kiếm theo ten
+              { email: new RegExp(keyword, 'i') }, //tìm kiếm theo email
             ],
           }
         : {};
