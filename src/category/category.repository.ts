@@ -90,7 +90,7 @@ export class CategoryRepository {
     }
 
     if (
-      categoryOld.parent_id.toString() &&
+      categoryOld.parent_id &&
       categoryOld.parent_id.toString() !== categoryNew.parent_id
     ) {
       await this.model.updateOne(

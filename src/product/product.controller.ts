@@ -21,6 +21,7 @@ import { CreateProductDto } from './dto/create-poduct.dto';
 import { CloudiaryService } from 'src/cloudiary/cloudiary.service';
 import { ProductService } from './product.service';
 import {
+  buildPagination,
   checkExtraFiles,
   checkFileImage,
   checkMainFile,
@@ -32,6 +33,7 @@ import { Roles } from 'src/auth/decorator/role.decorator';
 import { Role } from 'src/auth/decorator/role.enum';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { RoleAuthGuard } from 'src/auth/guards/role-jwt.gaurd';
+import { Product } from './model/product.schema';
 
 @Controller('products')
 export class ProductController {
@@ -98,8 +100,9 @@ export class ProductController {
   @UseGuards(JwtAuthGuard, RoleAuthGuard)
   @Roles(Role.ADMIN, Role.USER)
   @Get()
-  getAll(@Query() params: ParamPaginationDto) {
-    return this.productService.findAll(params);
+  async getAll(@Query() params: ParamPaginationDto) {
+    const products = await this.productService.findAll(params);
+    return buildPagination<Product>(products, params);
   }
 
   @UseGuards(JwtAuthGuard, RoleAuthGuard)
