@@ -121,4 +121,11 @@ export class ProductService {
 
     return product;
   }
+
+  async updateStock(id: string, stock: number) {
+    return await this.productRepository.updateStock(
+      new Types.ObjectId(id),
+      stock,
+    );
+  }
 }
