@@ -34,8 +34,8 @@ export class OrderController {
     return await this.service.findByCustomer(_id);
   }
 
-  @UseGuards(JwtAuthGuard, RoleAuthGuard)
-  @Roles(Role.ADMIN, Role.USER)
+  // @UseGuards(JwtAuthGuard, RoleAuthGuard)
+  // @Roles(Role.ADMIN, Role.USER)
   @Get(':id')
   async getOne(@Param('id') id: string) {
     return await this.service.findOne(id);

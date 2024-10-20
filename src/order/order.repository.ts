@@ -26,6 +26,12 @@ export class OrderRepository {
       .populate<{
         customer_id: Customer;
       }>('customer_id')
+      .populate({
+        path: 'order_detail',
+        populate: {
+          path: 'product_id',
+        },
+      })
       .lean<Order>(true);
   }
 

@@ -3,6 +3,7 @@ import {
   Injectable,
   NotFoundException,
   OnModuleInit,
+  UnauthorizedException,
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { UserRepository } from './user.repository';
@@ -48,7 +49,7 @@ export class UserService implements OnModuleInit {
   async getOne(id: string) {
     const user = await this.repository.findOne(id, '-password');
     if (!user) {
-      throw new NotFoundException('Không tìm thấy user');
+      throw new UnauthorizedException('Không tìm thấy user');
     }
     return user;
   }

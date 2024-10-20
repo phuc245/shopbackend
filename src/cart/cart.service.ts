@@ -52,10 +52,14 @@ export class CartService {
   }
 
   async deleteByCustomerAndProduct(customer_id: string, product_id: string) {
-    return await this.repository.deleteByCustomerAndProduct(
+    const cart = await this.repository.deleteByCustomerAndProduct(
       customer_id,
       product_id,
     );
+    if (!cart) {
+      throw new BadRequestException('Không tìm thấy cart');
+    }
+    return cart;
   }
 
   async deleteCartCustomer(customer_id: string) {
