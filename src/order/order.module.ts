@@ -15,6 +15,6 @@ import { OrderDetail, OrderDetailSchema } from './model/order-detail.schema';
   ],
   controllers: [OrderController],
   providers: [OrderRepository, OrderService],
-  exports: [OrderService],
+  exports: [OrderService, OrderRepository],
 })
 export class OrderModule {}

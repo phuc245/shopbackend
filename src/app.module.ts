@@ -10,6 +10,7 @@ import { Cart } from './cart/model/cart.schema';
 import { CartModule } from './cart/cart.module';
 import { MailModule } from './mail/mail.module';
 import { CheckoutModule } from './checkout/checkout.module';
+import { ReportModule } from './report/report.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { CheckoutModule } from './checkout/checkout.module';
     CartModule,
     MailModule,
     CheckoutModule,
+    ReportModule,
   ],
 })
 export class AppModule {}

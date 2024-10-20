@@ -39,13 +39,15 @@
       <tbody>
         {{#each items}}
           <tr>
-            <td style='border: 1px solid #ccc; padding: 8px;'>{{this.name}}</td>
+            <td 
+             style='border: 1px solid #ccc; padding: 8px;'
+            >{{this.product_id.name}}</td>
             <td
               style='border: 1px solid #ccc; padding: 8px;'
             >{{this.quantity}}</td>
             <td
               style='border: 1px solid #ccc; padding: 8px;'
-            >{{this.price}}</td>
+            >{{this.Product_id.price}}</td>
             <td
               style='border: 1px solid #ccc; padding: 8px;'
             >{{this.total}}</td>

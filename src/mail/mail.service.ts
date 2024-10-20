@@ -31,7 +31,7 @@ export class MailService {
       to: email, // list of receivers
       from: 'wingpaikawing@gmail.com', // sender address
       subject: 'Thay đổi mật khẩu của bạn', // Subject line
-      template: 'forgot-password', // plaintext body
+      template: 'forgot-pasword', // plaintext body
       context: {
         url: url,
       },

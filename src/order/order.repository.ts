@@ -62,11 +62,23 @@ export class OrderRepository {
   async findOne(id: string) {
     return await this.orderModel
       .findOne({ _id: id })
-      .populate('order_detail')
+      .populate({
+        path: 'order_detail',
+        populate: {
+          path: 'product_id',
+        },
+      })
       .lean<Order>(true);
   }
 
   async findByCustomer(customer_id: string) {
     return await this.orderModel.find({ customer_id }).lean<Order[]>(true);
+  }
+
+  async getLastOptionDays(startDate: Date, endDate: Date) {
+    return await this.orderModel
+      .find({ created_at: { $gte: startDate, $lt: endDate } })
+      .sort({ created_at: 1 }) // Sắp xếp theo ngày giao hàng tăng dần
+      .lean<Order[]>(true);
   }
 }

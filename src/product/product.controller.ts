@@ -117,7 +117,6 @@ export class ProductController {
     const product = await this.productService.deleteById(id);
 
     await this.cloudinaryService.deleteById(`products/${product._id}`);
-    await this.cloudinaryService.deleteFolder(`products/${product._id}`);
 
     return id; //'Xoá new product bạn!';
   }
