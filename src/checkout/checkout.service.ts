@@ -39,7 +39,7 @@ export class CheckoutService {
 
     const customer = await this.customerService.findById(customer_id);
 
-    this.mailService.placeOrder(order, customer);
+    await this.mailService.placeOrder(order, customer);
 
     return order;
   }
