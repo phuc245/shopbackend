@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { SchemaTypes, Types } from 'mongoose';
+import { Review, ReviewSchema } from 'src/review/model/review.Schema';
 
 @Schema()
 export class Image {

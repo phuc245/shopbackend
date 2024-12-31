@@ -70,14 +70,13 @@ export class UserController {
 
   // Lay User theo ID
   @UseGuards(JwtAuthGuard)
-  @Roles(Role.ADMIN)
   @Get(':id')
   getUserById(@Param('id') _id: string) {
     return this.service.getOne(_id);
   }
 
   //Thay đổi User theo Id
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RoleAuthGuard)
   @Roles(Role.ADMIN)
   @Put(':id/status')
   updatupdateStatusUser(

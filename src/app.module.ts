@@ -13,6 +13,8 @@ import { CheckoutModule } from './checkout/checkout.module';
 import { ReportModule } from './report/report.module';
 import { Blog } from './blog/model/blog.shema';
 import { BlogModule } from './blog/blog.module';
+import { ComboModule } from './combo/promo.module';
+import { ReviewModule } from './review/review.Module';
 
 @Module({
   imports: [
@@ -28,6 +30,8 @@ import { BlogModule } from './blog/blog.module';
     CheckoutModule,
     ReportModule,
     BlogModule,
+    ComboModule,
+    ReviewModule,
   ],
 })
 export class AppModule {}

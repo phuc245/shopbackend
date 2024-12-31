@@ -184,4 +184,24 @@ export class ProductService {
       }
     }
   }
+
+  // async updateDiscountedPrice(productId: string, discountPercentage: number) {
+  //   const product = await this.productRepository.findById(productId);
+  //   if (!product) throw new NotFoundException('Product not found');
+
+  //   const discountedPrice = product.price * (1 - discountPercentage / 100);
+  //   return await this.productRepository.updateOne(productId, {
+  //     discountedPrice,
+  //     originalPrice: product.originalPrice || product.price,
+  //   });
+  // }
+
+  // async restoreOriginalPrice(productId: string) {
+  //   const product = await this.productRepository.findById(productId);
+  //   if (!product) throw new NotFoundException('Product not found');
+
+  //   return await this.productRepository.updateOne(productId, {
+  //     discountedPrice: null, // Xoá giá khuyến mãi khi hết chương trình
+  //   });
+  // }
 }

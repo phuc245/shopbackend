@@ -7,7 +7,7 @@ export class OrderDetail {
   _id: Types.ObjectId;
 
   @Prop({ type: SchemaTypes.ObjectId, ref: 'Product' })
-  product_id: Types.ObjectId;
+  product_id: Types.ObjectId; // ID của sản phẩm lẻ hoặc combo
 
   @Prop({ type: SchemaTypes.ObjectId, ref: 'Order' })
   order_id: Types.ObjectId;

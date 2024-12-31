@@ -15,6 +15,9 @@ export class CustomerRepository {
     return await this.model.create({
       _id: new Types.ObjectId(),
       ...customer,
+      image_url:
+        'https://res.cloudinary.com/dtoe4qtxl/image/upload/v1732522213/hinhdaidien_jwgcv6.jpg',
+      image_id: '1',
     });
   }
 

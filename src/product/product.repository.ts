@@ -96,4 +96,10 @@ export class ProductRepository {
       .findOneAndUpdate({ _id }, { status }, { new: true })
       .lean<Product>(true);
   }
+
+  // async updateOne(id: string, updateData: Partial<Product>) {
+  //   return await this.model
+  //     .findByIdAndUpdate(id, { $set: updateData }, { new: true })
+  //     .lean();
+  // }
 }

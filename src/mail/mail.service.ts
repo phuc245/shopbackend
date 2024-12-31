@@ -41,8 +41,8 @@ export class MailService {
 
   async feedBack(feedback: FeedbackDto) {
     await this.mailerService.sendMail({
-      to: feedback.email, // list of receivers
-      from: 'wingpaikawing@gmail.com', // sender address
+      from: feedback.email, // list of receivers
+      to: 'wingpaikawing@gmail.com', // sender address
       subject: 'Phản hồi khách hàng', // Subject line
       template: 'feedback', // plaintext body
       context: {

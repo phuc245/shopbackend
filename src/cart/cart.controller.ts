@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { CartService } from './cart.service';
-import { AddCartDto } from './dto/add-cart.dto';
+import { AddCartDto, AddCartMultipleDto } from './dto/add-cart.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
 @Controller('carts')
@@ -22,6 +22,20 @@ export class CartController {
     const _id = req.user._id;
 
     return this.cartService.addCart(_id, cart);
+  }
+
+  // API thêm nhiều sản phẩm vào giỏ hàng (combo)
+  @UseGuards(JwtAuthGuard)
+  @Post('multiple')
+  addMultipleToCart(
+    @Request() req,
+    @Body() addCartMultipleDto: AddCartMultipleDto,
+  ) {
+    const _id = req.user._id;
+    return this.cartService.addMultipleToCart(
+      _id,
+      addCartMultipleDto.cartItems,
+    );
   }
 
   @UseGuards(JwtAuthGuard)
